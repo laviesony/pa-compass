@@ -1,0 +1,104 @@
+policies:
+  - procedure: MRI_LUMBAR
+    procedure_name: MRI Lumbar Spine
+    requirements:
+      - key: diagnosis_code
+        label: Diagnosis code
+      - key: symptom_duration_weeks
+        label: Symptom duration
+      - key: conservative_treatment
+        label: Conservative treatment history
+        minimum_weeks: 6
+      - key: clinical_note
+        label: Recent clinical note
+        max_age_days: 90
+    routing:
+      complete: INTAKE_READY
+      missing_information: PROVIDER_FOLLOWUP
+      conflicting_information: CLINICAL_REVIEW
+      malformed: HUMAN_TRIAGE
+      unknown_procedure: UNSUPPORTED_PROCEDURE
+
+  - procedure: CT_CHEST
+    procedure_name: CT Chest
+    requirements:
+      - key: diagnosis_code
+        label: Diagnosis code
+      - key: symptoms
+        label: Relevant symptoms
+      - key: symptom_duration_weeks
+        label: Symptom duration
+        minimum_weeks: 2
+      - key: requested_location
+        label: Requested service location
+      - key: clinical_note
+        label: Recent clinical note
+        max_age_days: 90
+    routing:
+      complete: INTAKE_READY
+      missing_information: PROVIDER_FOLLOWUP
+      conflicting_information: CLINICAL_REVIEW
+      malformed: HUMAN_TRIAGE
+      unknown_procedure: UNSUPPORTED_PROCEDURE
+
+  - procedure: SLEEP_STUDY
+    procedure_name: Sleep Study
+    requirements:
+      - key: diagnosis_code
+        label: Diagnosis code
+      - key: symptoms
+        label: Sleep-related symptoms
+      - key: symptom_duration_weeks
+        label: Symptom duration
+        minimum_weeks: 4
+      - key: clinical_note
+        label: Recent clinical note
+        max_age_days: 60
+    routing:
+      complete: INTAKE_READY
+      missing_information: PROVIDER_FOLLOWUP
+      conflicting_information: CLINICAL_REVIEW
+      malformed: HUMAN_TRIAGE
+      unknown_procedure: UNSUPPORTED_PROCEDURE
+
+  - procedure: PT_EXTENSION
+    procedure_name: Physical Therapy Extension
+    requirements:
+      - key: diagnosis_code
+        label: Diagnosis code
+      - key: conservative_treatment
+        label: Current therapy plan
+      - key: treatment_duration_weeks
+        label: Treatment duration
+        minimum_weeks: 6
+      - key: clinical_note
+        label: Recent clinical note
+        max_age_days: 90
+    routing:
+      complete: INTAKE_READY
+      missing_information: PROVIDER_FOLLOWUP
+      conflicting_information: CLINICAL_REVIEW
+      malformed: HUMAN_TRIAGE
+      unknown_procedure: UNSUPPORTED_PROCEDURE
+
+  - procedure: SPECIALTY_MEDICATION
+    procedure_name: Specialty Medication Review
+    requirements:
+      - key: diagnosis_code
+        label: Diagnosis code
+      - key: ordering_provider
+        label: Ordering provider
+      - key: requested_units
+        label: Requested units
+      - key: treatment_duration_weeks
+        label: Treatment duration
+        minimum_weeks: 4
+      - key: clinical_note
+        label: Recent clinical note
+        max_age_days: 90
+    routing:
+      complete: INTAKE_READY
+      missing_information: PROVIDER_FOLLOWUP
+      conflicting_information: CLINICAL_REVIEW
+      malformed: HUMAN_TRIAGE
+      unknown_procedure: UNSUPPORTED_PROCEDURE
