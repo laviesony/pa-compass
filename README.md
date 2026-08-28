@@ -1,93 +1,75 @@
 # PA Compass
 
-**Evidence-grounded prior-authorization intake workflow.**
+Evidence-grounded **prior-authorization intake workflow** (Forward Deployed
+Engineering capstone). The app reviews a synthetic prior-authorization intake
+packet, detects missing information, explains why it is missing, drafts
+provider follow-up questions, routes the case, and keeps a human approval
+step at every stage.
 
-PA Compass is an evidence-grounded prior-authorization intake orchestration system that identifies missing information, explains why it is missing, recommends the next workflow action, routes the case, and keeps humans in control. It reviews a synthetic prior-authorization intake packet, detects missing information, drafts follow-up questions, routes the case, and preserves a human approval step.
+**Deterministic where possible. AI where useful. Human where necessary.**
+The workflow is a fixed LangGraph state machine — `validate → policy match →
+assess → route → gate` — with policy files as the source of truth. The LLM
+never decides routing or policy; it only extracts evidence from free-text
+notes and drafts follow-up questions.
 
-PA Compass is **not**:
-- an autonomous authorization decision maker
-- a clinical decision system
-- a chatbot
-- a free-running autonomous agent
-- a replacement for human authorization reviewers
+## Requirements
 
-Design philosophy: **Deterministic where possible. AI where useful. Human where necessary.** The LangGraph workflow is a fixed state machine (`validate → policy match → assess → confidence gate`); synthetic policy files are the source of truth, and the LLM is confined to extracting evidence from free-text notes, drafting follow-up questions, and summarizing reasons.
+- Python 3.11+
+- An OpenAI API key (only needed for AI-assisted mode; the app also runs in
+  deterministic baseline mode without one)
 
-## Quickstart
-
-Requires **Python 3.11+** (macOS's system `python3` is 3.9 — use a 3.11+ interpreter or a venv).
+## Run it
 
 ```bash
-# 1. Install dependencies (Python 3.11+)
-python3.11 -m venv .venv && source .venv/bin/activate
+# 1. Create and activate a virtual environment (Python 3.11+)
+python3.11 -m venv .venv
+source .venv/bin/activate
+
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 2. (Optional, for LLM-assisted mode) set an OpenAI-compatible key
-cp .env.example .env        # then edit: LLM_API_KEY=sk-...
-#     or export OPENAI_API_KEY / DEEPSEEK_API_KEY instead
+# 3. Add your OpenAI API key
+cp .env.example .env
+#    then edit .env and set: OPENAI_API_KEY=sk-...
 
-# 3a. Run the operations UI
+# 4. Launch the app
 streamlit run app.py
-
-# 3b. Or run the evaluation from the CLI
-python scripts/process_cases.py --only-eval                # deterministic baseline
-python scripts/process_cases.py --only-eval --llm          # full pipeline (LLM extraction)
 ```
 
-Works with any OpenAI-compatible provider (`LLM_PROVIDER=openai|deepseek`, `LLM_MODEL`, optional `LLM_BASE_URL`). Without a key, the app and CLI still run in deterministic baseline mode.
+Open http://localhost:8501 and log in as **Analyst** (daily case review) or
+**ADMIN** (evaluation, audit, per-case workflow runs).
 
-## What's in the repo
+### Using any OpenAI-compatible endpoint
 
-```text
-PAIWA/
-├── app.py                     # Streamlit operations UI (queue, case review, eval, audit)
-├── pa_compass/                # one small package
-│   ├── models.py              # pydantic models + enums (packets, policies, results)
-│   ├── policy_engine.py       # deterministic requirement checks, routing, confidence
-│   ├── workflow.py            # LangGraph state machine (validate → … → confidence gate)
-│   ├── llm_client.py          # OpenAI-compatible client (openai / deepseek)
-│   ├── prompts.py             # versioned prompts (PROMPT_VERSION)
-│   ├── evaluate.py            # evaluation metrics
-│   ├── audit.py               # JSONL audit logger
-│   └── version.py             # workflow / policy / prompt / model / eval-set versions
-├── policies/policies.yaml     # 5 fictional procedure policies (source of truth)
-├── scripts/
-│   ├── generate_cases.py      # seeded synthetic dataset generator (reproducible)
-│   └── process_cases.py       # CLI: run the workflow over cases + evaluation metrics
-├── data/
-│   ├── pa_cases.csv           # 40 synthetic packets (30 labeled eval cases, 11 case types)
-│   ├── eval_results/          # versioned evaluation runs (performance over time)
-│   └── audit_log.jsonl        # append-only audit trail (created at runtime)
-└── docs/                      # submission documents
-    ├── problem_brief.md       # one-page brief (component 1)
-    ├── ai_evidence.md         # tool choices, eval cases, measured results, risks (component 3)
-    ├── enterprise_readiness.md# data/access/audit/security/handoff (component 4)
-    └── demo_script.md         # five-minute demo narrative (component 5)
+Set `LLM_BASE_URL` in `.env` to point at any OpenAI-compatible endpoint;
+`LLM_MODEL` selects the model. Leave both blank for OpenAI defaults.
+
+## Demo walkthrough
+
+1. **Analyst desk** — "Welcome, John 👋". Every case shows the complete
+   packet (facts, full clinical narrative, applied policy) before any
+   decision. Yellow = AI marked it ready for sign-off; red = needs review.
+2. **Follow-up loop** — a missing-info case shows the AI's drafted follow-up
+   question, editable. **Send to provider** parks the case as awaiting
+   response; **Simulate provider response (demo)** re-enters the supplemented
+   packet and the workflow re-assesses it.
+3. **Security cases** — prompt-injection packets are restricted (ADMIN-only
+   detail) and escalated.
+4. **ADMIN** — per-case runs (Static / AI Assisted), evaluation metrics and
+   drift, and the full audit log.
+
+## Data notice
+
+All cases, patients, notes, and policies in `data/` and `policies/` are
+**synthetic** — fictional payers, procedures, and no real PHI. Generated for
+the capstone demo.
+
+## Project layout
+
 ```
-
-## How it works
-
-1. **Validate** — the packet is parsed leniently; malformed values and prompt-injection text are caught deterministically and routed to human triage.
-2. **Policy match** — the procedure's fictional policy is selected; unknown procedures route to UNSUPPORTED_PROCEDURE.
-3. **Assess** — deterministic checks (required fields, `minimum_weeks` thresholds, `max_age_days` recency, duplicates) plus LLM evidence extraction from the free-text note (schema-validated, one retry, fail-closed). Conflicts and low evidence coverage escalate to clinical review.
-4. **Confidence gate** — an explainable score from observable signals (< 0.80 → HUMAN_REVIEW). The LLM never self-reports confidence.
-5. **Human** — every recommendation is approved, overridden (reason required), or escalated in the UI; the decision is written to the audit log.
-
-Every conclusion keeps decision provenance: what was concluded, why (policy rule), what evidence (packet vs policy value), and where it came from. The UI shows the event timeline and "What would change this recommendation?" for each missing item.
-
-## Measured results (this repository)
-
-| Metric | Deterministic baseline | Full pipeline (LLM) |
-|---|---|---|
-| Routing accuracy | 83.3% | **100%** |
-| Status accuracy | 83.3% | **100%** |
-| Missing-item precision | 100% | **100%** |
-| Missing-item recall | 83.3% | 96.7% |
-| Escalation recall | 58.3% | **100%** |
-| Unsafe auto-route rate | 41.7% | **0%** |
-
-30-case labeled golden set · 11 case types (complete, missing, threshold, stale, contradictory, malformed, unknown procedure, duplicate, ambiguous, prompt injection, long narrative). Every run is saved with its versions; see `data/eval_results/` and `docs/ai_evidence.md`.
-
-## DATA NOTICE
-
-All data, policies, patient identities, provider identities, clinical narratives, authorization cases, and operational metrics contained in this repository are **synthetically generated** for demonstration purposes. No production data, PHI, PII, customer data, proprietary authorization policy, internal source code, credentials, or internal system information was used in the development, testing, evaluation, or demonstration of this prototype. The system never determines medical necessity or coverage, and it never auto-approves an authorization.
+app.py                 Streamlit operations UI (analyst desk + admin dashboard)
+pa_compass/            workflow (LangGraph), policy engine, LLM client, audit
+policies/              synthetic policy definitions (source of truth)
+data/                  synthetic intake packets, batch assessment, audit log, eval results
+docs/                  submission package: problem brief, AI evidence, enterprise readiness, demo script
+```

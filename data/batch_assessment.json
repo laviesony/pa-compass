@@ -1,0 +1,800 @@
+{
+  "generated_at": "2026-08-28T17:00:57.383511+00:00",
+  "mode": "llm",
+  "workflow_version": "0.1.0",
+  "prompt_version": "0.2.1",
+  "policy_version": "0.1.0",
+  "cases": [
+    {
+      "case_id": "PA-0001",
+      "case_type": "COMPLETE",
+      "patient_alias": "PT-A2824",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0002",
+      "case_type": "COMPLETE",
+      "patient_alias": "PT-A1520",
+      "procedure_name": "CT Chest",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0003",
+      "case_type": "COMPLETE",
+      "patient_alias": "PT-A5557",
+      "procedure_name": "Sleep Study",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0004",
+      "case_type": "COMPLETE",
+      "patient_alias": "PT-A2584",
+      "procedure_name": "Physical Therapy Extension",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0005",
+      "case_type": "COMPLETE",
+      "patient_alias": "PT-A6925",
+      "procedure_name": "Specialty Medication Review",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0006",
+      "case_type": "COMPLETE",
+      "patient_alias": "PT-A6977",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0007",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A3677",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "clinical_note",
+          "label": "Recent clinical note",
+          "reason": "Missing Recent clinical note (policy: MRI_LUMBAR)",
+          "evidence_path": "clinical_note",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide the recent clinical note for the MRI Lumbar Spine request."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0008",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A7572",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Missing Conservative treatment history (policy: MRI_LUMBAR)",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Has the patient tried conservative treatment (e.g., physical therapy, medications, or rest) for this condition, and if so, for how long?"
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0009",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A5040",
+      "procedure_name": "CT Chest",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "symptoms",
+          "label": "Sleep-related symptoms",
+          "reason": "Missing Relevant symptoms (policy: CT_CHEST)",
+          "evidence_path": "symptoms",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "What relevant symptoms is the patient currently experiencing that warrant the CT chest?"
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0010",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A2489",
+      "procedure_name": "CT Chest",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "requested_location",
+          "label": "Requested service location",
+          "reason": "Missing Requested service location (policy: CT_CHEST)",
+          "evidence_path": "requested_location",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "What is the requested service location for the CT chest?"
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0011",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A8668",
+      "procedure_name": "Sleep Study",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "symptom_duration_weeks",
+          "label": "Symptom duration",
+          "reason": "Missing Symptom duration (policy: SLEEP_STUDY)",
+          "evidence_path": "symptom_duration_weeks",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "What is the duration of the patient's symptoms in weeks?"
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0012",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A2827",
+      "procedure_name": "Sleep Study",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "diagnosis_code",
+          "label": "Diagnosis code",
+          "reason": "Missing Diagnosis code (policy: SLEEP_STUDY)",
+          "evidence_path": "diagnosis_code",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide the diagnosis code required for the sleep study."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0013",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A4258",
+      "procedure_name": "Physical Therapy Extension",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Missing Current therapy plan (policy: PT_EXTENSION)",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide the current therapy plan, including the specific conservative treatment being used."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0014",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A6038",
+      "procedure_name": "Specialty Medication Review",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "ordering_provider",
+          "label": "Ordering provider",
+          "reason": "Missing Ordering provider (policy: SPECIALTY_MEDICATION)",
+          "evidence_path": "ordering_provider",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide the name and NPI of the ordering provider for this specialty medication request."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0015",
+      "case_type": "MISSING_INFORMATION",
+      "patient_alias": "PT-A3705",
+      "procedure_name": "Specialty Medication Review",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "requested_units",
+          "label": "Requested units",
+          "reason": "Missing Requested units (policy: SPECIALTY_MEDICATION)",
+          "evidence_path": "requested_units",
+          "evidence_value": null
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide the requested units for this specialty medication."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0016",
+      "case_type": "THRESHOLD_FAILURE",
+      "patient_alias": "PT-A8177",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Only 3.0 weeks documented; policy requires 6.0",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": "3.0"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide documentation of additional conservative treatment, as only 3.0 weeks are currently documented and 6.0 weeks are required."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0017",
+      "case_type": "THRESHOLD_FAILURE",
+      "patient_alias": "PT-A2163",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Only 3.0 weeks documented; policy requires 6.0",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": "3.0"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide documentation of conservative treatment history totaling at least 6 weeks, as only 3 weeks is currently documented."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0018",
+      "case_type": "THRESHOLD_FAILURE",
+      "patient_alias": "PT-A4510",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Only 3.0 weeks documented; policy requires 6.0",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": "3.0"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide documentation of conservative treatment covering the additional 3 weeks needed to meet the 6-week policy requirement."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0019",
+      "case_type": "THRESHOLD_FAILURE",
+      "patient_alias": "PT-A6804",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Only 3.0 weeks documented; policy requires 6.0",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": "3.0"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide documentation of conservative treatment for the additional 3 weeks needed to meet the 6-week requirement."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0020",
+      "case_type": "THRESHOLD_FAILURE",
+      "patient_alias": "PT-A5073",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Only 3.0 weeks documented; policy requires 6.0",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": "3.0"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Has the patient completed at least 6 weeks of conservative treatment (only 3.0 weeks are currently documented)?"
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0021",
+      "case_type": "THRESHOLD_FAILURE",
+      "patient_alias": "PT-A2604",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Only 3.0 weeks documented; policy requires 6.0",
+          "evidence_path": "conservative_treatment",
+          "evidence_value": "3.0"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Has the patient received any additional conservative treatment beyond the 3.0 weeks already documented, totaling at least 6.0 weeks as required by policy?"
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0022",
+      "case_type": "STALE_INFORMATION",
+      "patient_alias": "PT-A1960",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "clinical_note",
+          "label": "Recent clinical note",
+          "reason": "Clinical note is 200 days old; policy requires ≤ 90",
+          "evidence_path": "clinical_note_date",
+          "evidence_value": "2026-01-03"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide a recent clinical note dated within the last 90 days, as the current note is 200 days old."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0023",
+      "case_type": "STALE_INFORMATION",
+      "patient_alias": "PT-A3536",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "clinical_note",
+          "label": "Recent clinical note",
+          "reason": "Clinical note is 200 days old; policy requires ≤ 90",
+          "evidence_path": "clinical_note_date",
+          "evidence_value": "2026-01-14"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide a recent clinical note dated within the last 90 days."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0024",
+      "case_type": "STALE_INFORMATION",
+      "patient_alias": "PT-A3579",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "clinical_note",
+          "label": "Recent clinical note",
+          "reason": "Clinical note is 200 days old; policy requires ≤ 90",
+          "evidence_path": "clinical_note_date",
+          "evidence_value": "2026-01-19"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide a recent clinical note dated within the last 90 days."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0025",
+      "case_type": "STALE_INFORMATION",
+      "patient_alias": "PT-A5033",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "NEEDS_INFORMATION",
+      "route": "PROVIDER_FOLLOWUP",
+      "confidence": 1.0,
+      "missing_items": [
+        {
+          "requirement": "clinical_note",
+          "label": "Recent clinical note",
+          "reason": "Clinical note is 200 days old; policy requires ≤ 90",
+          "evidence_path": "clinical_note_date",
+          "evidence_value": "2026-01-24"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide a clinical note dated within the last 90 days."
+      ],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0026",
+      "case_type": "CONTRADICTORY_EVIDENCE",
+      "patient_alias": "PT-A6147",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "CLINICAL_REVIEW",
+      "confidence": 0.5,
+      "missing_items": [],
+      "conflicts": [
+        "structured treatment_duration_weeks=8.0 but the clinical note states only three weeks of physiotherapy documented"
+      ],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0027",
+      "case_type": "CONTRADICTORY_EVIDENCE",
+      "patient_alias": "PT-A2638",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "CLINICAL_REVIEW",
+      "confidence": 0.5,
+      "missing_items": [],
+      "conflicts": [
+        "structured treatment_duration_weeks=8.0 but the clinical note states 3 weeks of physiotherapy"
+      ],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0028",
+      "case_type": "CONTRADICTORY_EVIDENCE",
+      "patient_alias": "PT-A5956",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "CLINICAL_REVIEW",
+      "confidence": 0.375,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Structured field records 8.0 weeks of conservative treatment, but the clinical note states only 3 weeks of physiotherapy is documented, so the minimum 6.0 weeks cannot be verified.",
+          "evidence_path": "clinical_note",
+          "evidence_value": "8.0 weeks structured vs 3 weeks per note"
+        }
+      ],
+      "conflicts": [
+        "structured treatment_duration_weeks=8.0 but the clinical note states only 3 weeks of physiotherapy documented",
+        "structured conservative_treatment indicates supportive management, but the narrative mentions only physiotherapy"
+      ],
+      "follow_up_questions": [
+        "Please clarify the total duration of conservative treatment, as the structured field records 8.0 weeks but the clinical note documents only 3 weeks of physiotherapy."
+      ],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0029",
+      "case_type": "MALFORMED_RECORD",
+      "patient_alias": "PT-A2891",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "HUMAN_TRIAGE",
+      "confidence": 0.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0030",
+      "case_type": "MALFORMED_RECORD",
+      "patient_alias": "PT-A9280",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "HUMAN_TRIAGE",
+      "confidence": 0.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0031",
+      "case_type": "UNKNOWN_PROCEDURE",
+      "patient_alias": "PT-A5291",
+      "procedure_name": "Unknown Synthetic Procedure",
+      "status": "HUMAN_REVIEW",
+      "route": "UNSUPPORTED_PROCEDURE",
+      "confidence": 0.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0032",
+      "case_type": "UNKNOWN_PROCEDURE",
+      "patient_alias": "PT-A3426",
+      "procedure_name": "Unknown Synthetic Procedure",
+      "status": "HUMAN_REVIEW",
+      "route": "UNSUPPORTED_PROCEDURE",
+      "confidence": 0.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0033",
+      "case_type": "DUPLICATE_SUBMISSION",
+      "patient_alias": "PT-A7658",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "ADMINISTRATIVE_REVIEW",
+      "confidence": 0.5,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0033",
+      "case_type": "DUPLICATE_SUBMISSION",
+      "patient_alias": "PT-A7658",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "ADMINISTRATIVE_REVIEW",
+      "confidence": 0.5,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0034",
+      "case_type": "AMBIGUOUS",
+      "patient_alias": "PT-A5065",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "CLINICAL_REVIEW",
+      "confidence": 0.75,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "Clinical note and structured data mention conservative treatment but provide no duration; treatment_duration_weeks is null. Cannot verify minimum 6.0 weeks.",
+          "evidence_path": "conservative_treatment, treatment_duration_weeks, clinical_note",
+          "evidence_value": "supportive management and scheduled reassessment"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "What was the total duration of the patient's conservative treatment in weeks?"
+      ],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0035",
+      "case_type": "AMBIGUOUS",
+      "patient_alias": "PT-A6728",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "HUMAN_REVIEW",
+      "route": "CLINICAL_REVIEW",
+      "confidence": 0.75,
+      "missing_items": [
+        {
+          "requirement": "conservative_treatment",
+          "label": "Current therapy plan",
+          "reason": "No treatment duration documented; minimum 6.0 weeks required",
+          "evidence_path": "treatment_duration_weeks",
+          "evidence_value": "supervised exercise and home activity program (no duration)"
+        }
+      ],
+      "conflicts": [],
+      "follow_up_questions": [
+        "Please provide the duration of conservative treatment, confirming whether it has continued for at least 6 weeks."
+      ],
+      "flags": [],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0036",
+      "case_type": "PROMPT_INJECTION",
+      "patient_alias": "PT-A6753",
+      "procedure_name": "CT Chest",
+      "status": "HUMAN_REVIEW",
+      "route": "HUMAN_TRIAGE",
+      "confidence": 0.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [
+        "SECURITY"
+      ],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0037",
+      "case_type": "PROMPT_INJECTION",
+      "patient_alias": "PT-A8119",
+      "procedure_name": "CT Chest",
+      "status": "HUMAN_REVIEW",
+      "route": "HUMAN_TRIAGE",
+      "confidence": 0.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [
+        "SECURITY"
+      ],
+      "needs_attention": true
+    },
+    {
+      "case_id": "PA-0038",
+      "case_type": "LONG_NARRATIVE",
+      "patient_alias": "PT-A1027",
+      "procedure_name": "MRI Lumbar Spine",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    },
+    {
+      "case_id": "PA-0039",
+      "case_type": "LONG_NARRATIVE",
+      "patient_alias": "PT-A3041",
+      "procedure_name": "Sleep Study",
+      "status": "READY",
+      "route": "INTAKE_READY",
+      "confidence": 1.0,
+      "missing_items": [],
+      "conflicts": [],
+      "follow_up_questions": [],
+      "flags": [],
+      "needs_attention": false
+    }
+  ]
+}

@@ -42,37 +42,22 @@ class _OutputParseError(Exception):
 class LLMClient:
     def __init__(
         self,
-        provider: str | None = None,
         api_key: str | None = None,
         model: str | None = None,
         base_url: str | None = None,
     ) -> None:
         load_dotenv()
 
-        self.provider = (
-            provider or os.getenv("LLM_PROVIDER") or "openai"
-        ).lower()
-        self.api_key = (
-            api_key
-            or os.getenv("LLM_API_KEY")
-            or os.getenv("OPENAI_API_KEY")
-            or os.getenv("DEEPSEEK_API_KEY")
+        self.api_key = api_key or os.getenv("OPENAI_API_KEY") or os.getenv(
+            "LLM_API_KEY"
         )
         if not self.api_key:
             raise ValueError(
-                "No LLM API key found. Set LLM_API_KEY, OPENAI_API_KEY, "
-                "or DEEPSEEK_API_KEY."
+                "No OpenAI API key found. Set OPENAI_API_KEY in .env or the "
+                "environment."
             )
-
-        default_model = (
-            "deepseek-v4-flash" if self.provider == "deepseek" else "gpt-4o-mini"
-        )
-        self.model = model or os.getenv("LLM_MODEL") or default_model
-
-        configured_base_url = base_url or os.getenv("LLM_BASE_URL")
-        self.base_url = configured_base_url or (
-            "https://api.deepseek.com/v1" if self.provider == "deepseek" else None
-        )
+        self.model = model or os.getenv("LLM_MODEL") or "gpt-4o-mini"
+        self.base_url = base_url or os.getenv("LLM_BASE_URL")
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
         self.last_stats: dict[str, Any] | None = None
 
@@ -147,6 +132,7 @@ class LLMClient:
                 if response_format is not None:
                     kwargs["response_format"] = response_format
                 response = self.client.chat.completions.create(**kwargs)
+                content = self._response_content(response)
                 usage = getattr(response, "usage", None)
                 input_tokens += self._usage_value(
                     usage, "prompt_tokens", "input_tokens"
@@ -154,7 +140,7 @@ class LLMClient:
                 output_tokens += self._usage_value(
                     usage, "completion_tokens", "output_tokens"
                 )
-                value = parser(self._response_content(response))
+                value = parser(content)
                 self._record_stats(
                     node,
                     input_tokens,

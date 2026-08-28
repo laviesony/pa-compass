@@ -28,6 +28,7 @@ class WorkflowStateSchema(TypedDict):
     route: Route | None
     confidence: float
     follow_up_questions: list[str]
+    conflicts: list[str]
     events: Annotated[list[dict], operator.add]
 
 
@@ -162,9 +163,10 @@ def assess(state: WorkflowStateSchema, llm: LLMClient | None = None) -> dict:
     reasons = list(base.reasons)
     if len(missing) != len(base.missing_items):
         reasons = [f"{len(missing)} requirements missing"]
-    if extraction.conflicts:
+    conflict_texts = [_conflict_text(conflict) for conflict in extraction.conflicts]
+    if conflict_texts:
         status, route = WorkflowState.HUMAN_REVIEW, Route.CLINICAL_REVIEW
-        reasons.extend(_conflict_text(conflict) for conflict in extraction.conflicts)
+        reasons.extend(conflict_texts)
         events.append({"type": "conflicting_evidence"})
 
     # Evidence coverage only matters when the deterministic engine found no
@@ -202,7 +204,7 @@ def assess(state: WorkflowStateSchema, llm: LLMClient | None = None) -> dict:
     return _step(
         "assess", state, extra_events=events, assessment=assessment,
         status=status, route=route, confidence=confidence,
-        follow_up_questions=follow_up_questions
+        follow_up_questions=follow_up_questions, conflicts=conflict_texts,
     )
 
 
@@ -257,7 +259,7 @@ def run_packet(
     initial: WorkflowStateSchema = {
         "packet": packet, "issues": issues, "policy": None, "assessment": None,
         "status": WorkflowState.RECEIVED, "route": None, "confidence": 0.0,
-        "follow_up_questions": [], "events": [],
+        "follow_up_questions": [], "conflicts": [], "events": [],
     }
     initial["events"] = [_event("packet_received", initial)]
     return (graph or COMPILED_GRAPH).invoke(initial)

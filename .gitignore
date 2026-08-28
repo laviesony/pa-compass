@@ -23,3 +23,8 @@ Thumbs.db
 # Editors
 .idea/
 .vscode/
+
+# Submission artifacts (kept as PDFs, not source docs)
+docs/
+*.pdf
+!PA Compass.pdf

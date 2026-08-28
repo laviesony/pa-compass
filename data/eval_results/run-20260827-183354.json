@@ -6,7 +6,7 @@
     "workflow": "0.1.0",
     "prompt": "0.2.0",
     "policy": "0.1.0",
-    "model": "deepseek-v4-flash",
+    "model": "openai-compatible",
     "eval_set": "0.1.0"
   },
   "metrics": {
